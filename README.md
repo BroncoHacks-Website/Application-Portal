@@ -3,7 +3,7 @@
 ### Current Developers Working on the project
 
 **Project Manager:**  
-Michael
+Michael Wu 
 
 **Tech Leads:**  
 Daniel Pasion  
