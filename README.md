@@ -12,7 +12,7 @@ Justin Nguyen
 Amar Ghandi  
 
 **Developers:**  
-Brandon  
+Brandon Tseng
 Caleb  
 Cesar  
 Jacob  
