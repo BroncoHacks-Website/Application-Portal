@@ -15,6 +15,6 @@ Amar Ghandi
 Brandon Tseng
 Caleb  
 Cesar de Paula 
-Jacob  
+Jacob Alonzo  
 Jayden  
 Phu  
