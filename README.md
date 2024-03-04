@@ -14,7 +14,7 @@ Amar Ghandi
 **Developers:**  
 Brandon Tseng
 Caleb  
-Cesar  
+Cesar de Paula 
 Jacob  
 Jayden  
 Phu  
