@@ -15,6 +15,6 @@ Amar Ghandi
 Brandon  
 Caleb  
 Cesar  
-Jacob Alonzo
+Jacob Alonzo  
 Jayden  
 Phu  
