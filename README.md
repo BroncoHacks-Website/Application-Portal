@@ -12,9 +12,9 @@ Justin Nguyen
 Amar Ghandi  
 
 **Developers:**  
-Brandon Tseng
+Brandon Tseng  
 Caleb Chung  
-Cesar de Paula 
+Cesar de Paula  
 Jacob Alonzo  
 Jayden  
 Phu  
