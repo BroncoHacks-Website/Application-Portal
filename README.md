@@ -3,7 +3,7 @@
 ### Current Developers Working on the project
 
 **Project Manager:**  
-Michael Wu
+Michael Wu 
 
 **Tech Leads:**  
 Daniel Pasion  
@@ -12,9 +12,10 @@ Justin Nguyen
 Amar Ghandi  
 
 **Developers:**  
-Brandon Tseng
-Caleb  
-Cesar  
-Jacob  
+Brandon Tseng  
+Caleb Chung  
+Cesar de Paula  
+Jacob Alonzo  
 Jayden  
-Phu Truong
+Phu  
+Nicholas Amancio
