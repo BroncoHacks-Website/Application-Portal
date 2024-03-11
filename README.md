@@ -5,11 +5,14 @@
 **Project Manager:**  
 Michael Wu 
 
+**Tech Consultants**  
+Amar Gandhi  
+Toni Ji-Chek Tong  
+
 **Tech Leads:**  
 Daniel Pasion  
 Chris J Lo  
-Justin Nguyen  
-Amar Ghandi  
+Justin Nguyen      
 
 **Developers:**  
 Brandon Tseng  
