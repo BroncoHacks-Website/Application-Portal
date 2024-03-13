@@ -8,7 +8,7 @@ app.get('/', function (req, res) {
     let sql = "SELECT * FROM initial_broncohacks_db.User"
     connection.query(sql, function (err, result) {
         if (err) throw err;
-        res.send(result);
+        res.send(result)
     })
 });
 
