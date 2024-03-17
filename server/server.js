@@ -8,6 +8,8 @@ const app = express();
 // database
 const connection = require('./database');
 
+app.use(express.json())
+
 // test db connection
 app.get('/', function (req, res) {
     let sql = "SELECT * FROM initial_broncohacks_db.User"
