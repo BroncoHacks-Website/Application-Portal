@@ -1,16 +1,27 @@
 const db = require("../database");
 
+async function getUsers() {
+  const [rows] = await db.query(`SELECT * FROM User`);
+  return rows;
+}
+
+async function getUser(id) {
+  const [rows] = await db.query(`SELECT * FROM User WHERE id = ?`, [id]);
+  return rows;
+}
+
+async function getUserEmails() {
+  const [rows] = await db.query(`SELECT email FROM User`);
+  return rows;
+}
+
 async function createAccount(email, password) {
-  return new Promise((resolve, reject) => {
-    const sql = "INSERT INTO `User` (email, password) VALUES (?, ?)";
-    db.query(sql, [email, password], (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
+  const [result] = await db.query(
+    `INSERT INTO User (email, password) VALUES (?, ?)`,
+    [email, password]
+  );
+  const id = result.insertId;
+  return getUser(id);
 }
 
 // async function createAccount(email, password) {
@@ -56,5 +67,8 @@ async function createAccount(email, password) {
 // }
 
 module.exports = {
+  getUsers,
+  getUser,
+  getUserEmails,
   createAccount,
 };
