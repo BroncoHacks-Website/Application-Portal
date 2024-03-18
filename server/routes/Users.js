@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { validationResult, matchedData } = require("express-validator");
 const db = require("../database");
 const { accountCreationValidator } = require("../validators/users");
 // GET all users
@@ -36,6 +37,7 @@ router.post("/", accountCreationValidator, async (req, res) => {
   const email = data.email;
   const password = data.password;
 
+  // try to send data to db
   try {
     const createdAccount = await UserController.createAccount(email, password);
     res.status(200).json({
