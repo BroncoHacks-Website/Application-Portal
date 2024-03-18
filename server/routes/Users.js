@@ -22,10 +22,6 @@ router.get("/:userid", async (req, res) => {
   const id = req.params.userid;
   const sql = "SELECT * FROM `User` WHERE userid = ?";
 
-  if (!sql) {
-    return res.status(500).send("SQL query is undefined");
-  }
-
   db.query(sql, [id], async (err, result) => {
     if (err) {
       res.status(404).send("Resource Not Found");
@@ -50,10 +46,20 @@ router.post("/", accountCreationValidator, async (req, res) => {
   try {
     const sql = "INSERT INTO `User` (email, password) VALUES (?, ?)";
     db.query(sql, [email, password], async (err, result) => {
-      // if (err) {
-      //   res.status(404).send("Resouce Not Found");
-      //   throw err;
-      // }
+      res.status(200).send({ status: "success", data: result });
+    });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+// DELETE user (by userid)
+router.delete("/:userid", async (req, res) => {
+  const id = req.params.userid;
+
+  try {
+    const sql = "DELETE FROM `User` WHERE userid = ?";
+    db.query(sql, [id], async (err, result) => {
       res.status(200).send(result);
     });
   } catch (err) {
