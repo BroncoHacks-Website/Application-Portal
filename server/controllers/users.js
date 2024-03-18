@@ -1,7 +1,7 @@
 const db = require("../database");
 
 async function getUsers() {
-  const users = await db.query(`SELECT * FROM User`);
+  const [users] = await db.query(`SELECT * FROM User`);
   return users;
 }
 

@@ -7,6 +7,18 @@ const db = require("../database");
 
 // GET all users
 router.get("/", async (req, res) => {
+  
+  // Failed attempt at using controller .query doesn't return a Promise T^T
+  // try {
+  //   const users = await UserController.getUsers();
+  //   if (users.length === 0) {
+  //     res.status(404).send("No Users Not Found");
+  //   }
+  //   res.status(200).send(users);
+  // } catch(err) {
+  //   res.status(500).send(err.message);
+  // }
+  
   const sql = "SELECT * FROM `User`";
   db.query(sql, async (err, result) => {
     if (err) {
