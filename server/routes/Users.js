@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database')
+const userController = require("../controller/user.controller");
 
 // GET all users
 router.get("/", async (req, res) => {
@@ -13,5 +14,7 @@ router.get("/", async (req, res) => {
         res.status(200).send(result);
     })
 })
+
+router.post('/login', userController.login);
 
 module.exports = router;

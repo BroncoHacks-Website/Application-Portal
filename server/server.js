@@ -26,7 +26,6 @@ app.get('/', function (req, res) {
 const usersRouter = require('./routes/Users');
 app.use("/users", usersRouter);
 
-
 app.listen(process.env.PORT, () => {
     console.log('app listening on port', process.env.PORT)
 
