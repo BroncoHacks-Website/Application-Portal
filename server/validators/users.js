@@ -1,5 +1,13 @@
 const { param, body } = require("express-validator");
 
+const userIdValidator = [
+  param("userid")
+  .notEmpty()
+  .withMessage("User ID cannot be empty")
+  .isInt() // might need to change if we end up using UUIDs there is a .isUUID() method 
+  .withMessage("User ID must be an integer") 
+]
+
 const accountCreationValidator = [
   // Validate email
   body("email")
@@ -22,5 +30,6 @@ const accountCreationValidator = [
 ];
 
 module.exports = {
+  userIdValidator,
   accountCreationValidator,
 };
