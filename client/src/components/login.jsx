@@ -1,21 +1,20 @@
 import { useState } from "react";
+import userController from '../../../server/controller/user.controller.js';
 
 function Login() {
-    // const [email, password] = useState({
-    //     email : "",
-    //     password : "",
-    // });
-
-    // const UserService = require('../services/user.services');
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Email: ", email);
-        console.log("Password:", password);
-        setPassword('');
+       
+        try {
+            await userController.login(email, password);
+            console.log("Yippee");
+        }
+        catch(error) {
+            console.error("uh oh spaghettios", error);
+        }
     }
 
     const handlePasswordChange = (event) => {
