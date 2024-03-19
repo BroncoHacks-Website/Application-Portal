@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   try {
     const users = await UserController.getUsers();
     if (users.length === 0) {
-      res.status(404).send({ status: "fail", message: "No Users Not Found" });
+      return res.status(404).send({ status: "fail", message: "No Users Not Found" });
     }
     res.status(200).send(users);
   } catch (err) {
@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 router.get("/:userid", userIdValidator, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.status(400).send({
+    return res.status(400).send({
       status: "fail",
       errors: errors.array(),
     });
@@ -34,9 +34,6 @@ router.get("/:userid", userIdValidator, async (req, res) => {
 
   try {
     const user = await UserController.getUser(data.userid);
-    if (user.length === 0) {
-      res.status(404).send({ stats: "fail", message: "User Not Found" });
-    }
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send(err.message);
@@ -75,8 +72,6 @@ router.delete("/:userid", userIdValidator, async (req, res) => {
   }
 
   const data = matchedData(req);
-
-
 
   try {
     const deletedUser = await UserController.deleteUser(data.userid);
