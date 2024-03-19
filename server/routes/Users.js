@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../database')
+const db = require('../config/database');
 const userController = require("../controller/user.controller");
 
 // GET all users
