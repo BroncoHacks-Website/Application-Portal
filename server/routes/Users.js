@@ -57,8 +57,13 @@ router.post("/", accountCreationValidator, async (req, res) => {
   const { email, password } = matchedData(req);
 
   try {
-    const newUser = await UserController.createAccount(email, password);
-    res.status(200).send({ status: "success", data: newUser });
+    const checkIfExists = await UserController.getUserByEmail(email)
+    if (checkIfExists.length > 0) {
+      res.status(400).send({ status: "email already exists", data: checkIfExists });
+    } else {
+      const newUser = await UserController.createAccount(email, password);
+      res.status(200).send({ status: "success", data: newUser });
+    }
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -75,6 +80,8 @@ router.delete("/:userid", userIdValidator, async (req, res) => {
   }
 
   const data = matchedData(req);
+
+
 
   try {
     const deletedUser = await UserController.deleteUser(data.userid);

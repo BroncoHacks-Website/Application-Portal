@@ -10,6 +10,11 @@ async function getUser(id) {
   return user;
 }
 
+async function getUserByEmail(email) {
+  const [user] = await db.query(`SELECT * FROM User WHERE email = ?`, [email]);
+  return user;
+}
+
 async function createAccount(email, password) {
   const [result] = await db.query(
     `INSERT INTO User (email, password) VALUES (?, ?)`,
@@ -28,6 +33,7 @@ async function deleteUser(id) {
 module.exports = {
   getUsers,
   getUser,
+  getUserByEmail,
   createAccount,
   deleteUser,
 };
