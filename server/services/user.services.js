@@ -1,5 +1,5 @@
 
-const connection = require('./database');
+const connection = require('../config/database');
 
 const asyncHandler = require("express-async-handler")
 
