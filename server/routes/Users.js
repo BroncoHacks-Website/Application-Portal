@@ -48,7 +48,7 @@ router.post("/", accountCreationValidator, async (req, res) => {
   // validate (email is email and password fulfills requirements)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.status(400).send({
+    return res.status(400).send({
       status: "fail",
       errors: errors.array(),
     });
@@ -57,13 +57,8 @@ router.post("/", accountCreationValidator, async (req, res) => {
   const { email, password } = matchedData(req);
 
   try {
-    const checkIfExists = await UserController.getUserByEmail(email)
-    if (checkIfExists.length > 0) {
-      res.status(400).send({ status: "email already exists", data: checkIfExists });
-    } else {
-      const newUser = await UserController.createAccount(email, password);
-      res.status(200).send({ status: "success", data: newUser });
-    }
+    const newUser = await UserController.createAccount(email, password);
+    res.status(200).send({ status: "success", data: newUser });
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -73,7 +68,7 @@ router.post("/", accountCreationValidator, async (req, res) => {
 router.delete("/:userid", userIdValidator, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.status(400).send({
+    return res.status(400).send({
       status: "fail",
       errors: errors.array(),
     });

@@ -1,4 +1,5 @@
 const { param, body } = require("express-validator");
+const UserController = require('../controllers/users')
 
 const userIdValidator = [
   param("userid")
@@ -14,7 +15,13 @@ const accountCreationValidator = [
     .notEmpty()
     .withMessage("Email cannot be empty")
     .isEmail()
-    .withMessage("Invalid email format"),
+    .withMessage("Invalid email format")
+    .custom(async (email) => {
+      const exists = await UserController.getUserByEmail(email)
+      if (exists.length > 0) {
+        throw new Error('Email already in use');
+      }
+    }),
   // Validate password
   body("password")
     .notEmpty()
