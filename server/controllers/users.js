@@ -1,39 +1,84 @@
-const db = require("../database");
+const express = require("express");
+const router = express.Router();
+const UserModel = require("../models/users");
+const { validationResult, matchedData } = require("express-validator");
+const {
+  userIdValidator,
+  accountCreationValidator,
+} = require("../validators/users");
 
-async function getUsers() {
-  const [users] = await db.query(`SELECT * FROM User`);
-  return users;
-}
+// GET all users
+router.get("/", async (req, res) => {
+  try {
+    const users = await UserModel.getUsers();
+    if (users.length === 0) {
+      return res.status(404).send({ status: "fail", message: "No Users Not Found" });
+    }
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(500).send({ status: "error", message: err.message });
+  }
+});
 
-async function getUser(id) {
-  const [user] = await db.query(`SELECT * FROM User WHERE userid = ?`, [id]);
-  return user;
-}
+// GET user by id
+router.get("/:userid", userIdValidator, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({
+      status: "fail",
+      errors: errors.array(),
+    });
+  }
 
-async function getUserByEmail(email) {
-  const [user] = await db.query(`SELECT * FROM User WHERE email = ?`, [email]);
-  return user;
-}
+  const data = matchedData(req);
 
-async function createAccount(email, password) {
-  const [result] = await db.query(
-    `INSERT INTO User (email, password) VALUES (?, ?)`,
-    [email, password]
-  );
-  const id = result.insertId;
-  return getUser(id);
-}
+  try {
+    const user = await UserModel.getUser(data.userid);
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
-async function deleteUser(id) {
-  const user = await getUser(id);
-  await db.query(`DELETE FROM User WHERE userid = ?`, [id]);
-  return user;
-}
+// POST user
+router.post("/", accountCreationValidator, async (req, res) => {
+  // validate (email is email and password fulfills requirements)
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({
+      status: "fail",
+      errors: errors.array(),
+    });
+  }
 
-module.exports = {
-  getUsers,
-  getUser,
-  getUserByEmail,
-  createAccount,
-  deleteUser,
-};
+  const { email, password } = matchedData(req);
+
+  try {
+    const newUser = await UserModel.createAccount(email, password);
+    res.status(200).send({ status: "success", data: newUser });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+// DELETE user (by userid)
+router.delete("/:userid", userIdValidator, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({
+      status: "fail",
+      errors: errors.array(),
+    });
+  }
+
+  const data = matchedData(req);
+
+  try {
+    const deletedUser = await UserModel.deleteUser(data.userid);
+    res.status(200).send({ status: "success", data: deletedUser });
+  } catch (err) {
+    res.status(500).send({ status: "error", message: err.message });
+  }
+});
+
+module.exports = router;
