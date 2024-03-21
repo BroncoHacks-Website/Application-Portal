@@ -1,19 +1,60 @@
 import { useState } from "react";
-import userController from '../../../server/controller/user.controller.js';
+import axios from 'axios';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [login, setLogin] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
        
         try {
-            await userController.login(email, password);
-            console.log("Yippee");
+
+            // const response = await fetch(`/login?email=${email}&password=${password}`);
+
+            // if(response.ok) {
+            //     console.log("Success");
+            // }
+            // else {
+            //     console.log("Failed to log in");
+            // }
+
+            // const configuration = {
+            //     method: 'post',
+            //     url: 'http://localhost:5173/login',
+            //     data: {
+            //         email,
+            //         password
+            //     },
+            // };
+
+            // axios(configuration)
+            //     .then((result) => {
+            //         setLogin(true);
+            //     })
+            //     .catch((error) => {
+            //         error = new Error();
+            //     });
+
+            const responseOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            };
+
+            const response = await fetch('http://localhost:5173/login', responseOptions);
+        
+            if(response.ok) {
+                console.log("Login successful");
+            }
+            else {
+                console.log("Login failed");
+            }
+
         }
         catch(error) {
-            console.error("uh oh spaghettios", error);
+            console.error('Error: ', error)
         }
     }
 
