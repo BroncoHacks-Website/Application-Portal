@@ -1,9 +1,8 @@
 import React from 'react';
-import './App.css';
 import {useState} from 'react';
 // import {Link} from 'react-router-dom';
 
-function App() {
+function SignupPage() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -110,4 +109,4 @@ function App() {
   );
 }
 
-export default App;
+export default SignupPage;
