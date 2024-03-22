@@ -1,11 +1,46 @@
-import React from 'react';
-import {useState} from 'react';
+import React from "react";
+import { useState } from "react";
 // import {Link} from 'react-router-dom';
 
-function SignupPage() {
+export default function SignupPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  return (
+    <div className="container">
+      <div className="header">
+        <div className="text">Create an account!</div>
+      </div>
+      <div className="inputs">
+        {/* <h1>{warning}</h1> */}
+        {/* <form onSubmit={handleSubmit}> */}
+        <form>
+          <label>Email:</label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <label>Password:</label>
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            //  onBlur={validatePassword}
+            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*([\W]|[_])).{8,}$"
+          />
+
+          <button type="submit">Sign Up</button>
+        </form>
+
+        {/* <Link to="/login"> Log In </Link> */}
+      </div>
+    </div>
+  );
+}
 
   // I tried to use states to validate the password and display error messages but
   // since the setState function updates together with the page I couldn't figure
@@ -37,14 +72,14 @@ function SignupPage() {
   //   }
   //   if(password.length >= 8){
   //     setHasLength({hasLength: true})
-    // }
+  // }
 
   //   if(hasUpper) {
   //     setWarning({warning: 'Password Accepted!'})
   //   }
   //   else{
   //     setWarning({warning: 'Invalid Password!'})
-    // }
+  // }
 
   // const validatePassword = React.useCallback(() => {
   //   setHasUpper(false);
@@ -74,39 +109,3 @@ function SignupPage() {
   //   }
 
   // }, [password]);
-
-  return (
-    <div className='signup'>
-      {/* <h1>{warning}</h1> */}
-      {/* <form onSubmit={handleSubmit}> */}
-      <form>
-        <label>Email:</label>
-        <input
-         type='email'
-         required
-         value={email}
-         onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <label>Password:</label>
-        <input
-         type='password'
-         required
-         value={password}
-         onChange={(e) => setPassword(e.target.value)}
-        //  onBlur={validatePassword}
-         pattern='^(?=.*[A-Z])(?=.*[0-9])(?=.*([\W]|[_])).{8,}$'
-        />
-
-        <button type='submit'>
-          Sign Up
-        </button>
-      </form>
-
-      {/* <Link to="/login"> Log In </Link> */}
-
-    </div>
-  );
-}
-
-export default SignupPage;
