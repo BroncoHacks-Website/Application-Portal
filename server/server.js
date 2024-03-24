@@ -35,7 +35,7 @@ app.get('/', async (req, res) => {
 // });
 
 // gets all routes from ./routes/Users
-const usersRouter = require('./routes/Users');
+const usersRouter = require('./controllers/users');
 app.use("/users", usersRouter);
 
 
