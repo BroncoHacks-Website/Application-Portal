@@ -1,7 +1,14 @@
-const { validationResult, matchedData } = require("express-validator");
+const express = require("express");
+const router = express.Router();
 const UserModel = require("../models/users");
+const { validationResult, matchedData } = require("express-validator");
+const {
+  userIdValidator,
+  accountCreationValidator,
+} = require("../validators/users");
 
-const getAllUsers = async (req, res) => {
+// GET all users
+router.get("/", async (req, res) => {
   try {
     const users = await UserModel.getUsers();
     if (users.length === 0) {
@@ -11,9 +18,10 @@ const getAllUsers = async (req, res) => {
   } catch (err) {
     res.status(500).send({ status: "error", message: err.message });
   }
-}; // end getAllUsers
+});
 
-const getUserByID = async (req, res) => {
+// GET user by id
+router.get("/:userid", userIdValidator, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -30,10 +38,11 @@ const getUserByID = async (req, res) => {
   } catch (err) {
     res.status(500).send(err.message);
   }
-}; //end getUserByID
+});
 
-const createUser = async (req, res) => {
-  // validate (email is in correct format and password fulfills requirements)
+// POST user
+router.post("/", accountCreationValidator, async (req, res) => {
+  // validate (email is email and password fulfills requirements)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -50,9 +59,10 @@ const createUser = async (req, res) => {
   } catch (err) {
     res.status(500).send(err.message);
   }
-}; //end createUser
+});
 
-const deleteUser = async (req, res) => {
+// DELETE user (by userid)
+router.delete("/:userid", userIdValidator, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -69,11 +79,6 @@ const deleteUser = async (req, res) => {
   } catch (err) {
     res.status(500).send({ status: "error", message: err.message });
   }
-};
+});
 
-module.exports = {
-    getAllUsers,
-    getUserByID,
-    createUser,
-    deleteUser
-}
+module.exports = router;
