@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-// import {Link} from 'react-router-dom';
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -41,7 +40,7 @@ export default function SignupPage() {
         <h1>Already have an account?</h1>
       </div>
       <div className="loginButton">
-        <button>Log In</button>
+        <button type="submit" onClick={() => window.location.href = "/login"}>Log In</button>
       </div>
     </div>
   );
