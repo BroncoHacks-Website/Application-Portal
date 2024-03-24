@@ -8,10 +8,10 @@ export default function SignupPage() {
 
   return (
     <div className="container">
-      <div className="header">
-        <div className="text">Create an account!</div>
+      <div className="createAccountHeader">
+        <h1>Create an account!</h1>
       </div>
-      <div className="inputs">
+      <div className="createAccountInputs">
         {/* <h1>{warning}</h1> */}
         {/* <form onSubmit={handleSubmit}> */}
         <form>
@@ -35,8 +35,13 @@ export default function SignupPage() {
 
           <button type="submit">Sign Up</button>
         </form>
+      </div>
 
-        {/* <Link to="/login"> Log In </Link> */}
+      <div className="loginButtonHeader">
+        <h1>Already have an account?</h1>
+      </div>
+      <div className="loginButton">
+        <button>Log In</button>
       </div>
     </div>
   );
