@@ -1,4 +1,4 @@
-const db = require("../database");
+const db = require("../config/database");
 
 async function getUsers() {
   const [users] = await db.query(`SELECT * FROM User`);
@@ -30,10 +30,19 @@ async function deleteUser(id) {
   return user;
 }
 
+async function loginUser(email, password) {
+  const result = await db.query(
+    `SELECT * FROM User WHERE email = ? AND password = ?`, 
+    [email, password]
+  );
+  return result;
+}
+
 module.exports = {
   getUsers,
   getUser,
   getUserByEmail,
   createAccount,
   deleteUser,
+  loginUser
 };

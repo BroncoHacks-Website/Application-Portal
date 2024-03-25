@@ -36,7 +36,21 @@ const accountCreationValidator = [
     ),
 ];
 
+const accountLoginValidator = [
+  // Validate email
+  body("email")
+    .notEmpty()
+    .withMessage("Please enter email")
+    .isEmail()
+    .withMessage("Invalid email format"),
+  // Validate password
+  body("password")
+    .notEmpty()
+    .withMessage("Please enter a password")
+]
+
 module.exports = {
   userIdValidator,
   accountCreationValidator,
+  accountLoginValidator
 };

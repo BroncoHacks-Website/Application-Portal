@@ -71,9 +71,37 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+
+  // validation here for email and password
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).send({
+      status: "fail",
+      errors: errors.array(),
+    });
+  }
+
+  const {email, password} = matchedData(req);
+
+  try {
+    const result = await UserModel.loginUser(email, password);
+    
+    const passwordMatch = result.password == password;
+    if(passwordMatch) {
+      res.status(200).send({ status: "success", data: result.email});
+    } else {
+      res.status(401).send({ status: "error", message: err.message})
+    }
+  } catch (err) {
+    res.status(500).send({ status: "error", message: err.message});
+  }
+}; // end loginUser
+
 module.exports = {
     getAllUsers,
     getUserByID,
     createUser,
-    deleteUser
+    deleteUser,
+    loginUser
 }

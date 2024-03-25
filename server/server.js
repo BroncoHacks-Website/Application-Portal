@@ -8,7 +8,7 @@ console.log(port);
 const app = express();
 
 // database
-const connection = require('./database');
+const connection = require('./config/database');
 
 app.use(express.json())
 
@@ -41,10 +41,17 @@ const usersRouter = require('./routes/users');
 app.use("/users", usersRouter);
 
 app.listen(port, () => {
-    console.log('app listening on port', port)
+    // console.log('app listening on port', port)
+
+    // // connect to db
+    // db.connect(function(err) {
+    //     if (err) throw err;
+    //     console.log('database connected')
+    // })
+    console.log('app listening on port', process.env.PORT)
 
     // connect to db
-    db.connect(function(err) {
+    connection.connect(function(err) {
         if (err) throw err;
         console.log('database connected')
     })
