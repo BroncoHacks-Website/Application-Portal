@@ -1,9 +1,15 @@
 import "../styles/Navbar.css";
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import BroncoHacksLogo from "../assets/BroncoHacks_Logo.png";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const toggleHamburger = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className="navbar">
       <Link className="navbar-header" to="/">
@@ -33,6 +39,61 @@ const Navbar = () => {
           </button>
         </Link>
       </ul>
+
+      <div className="hamburger">
+        <div id="hamburger-container">
+          <div
+            id="hamburger"
+            className={open ? "open" : ""}
+            onClick={toggleHamburger}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+          <ul className="dropdown-item-container">
+            <Link
+              className="navLinks"
+              to="/"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <li className="dropdown-item">Home</li>
+            </Link>
+            <Link
+              className="navLinks"
+              to="/team"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <li className="dropdown-item">Team</li>
+            </Link>
+            <Link
+              className="navLinks"
+              to="/faq"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <li className="dropdown-item">FAQ</li>
+            </Link>
+            <Link
+              className="navLinks"
+              to="/signup"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <li className="dropdown-item">Apply</li>
+            </Link>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

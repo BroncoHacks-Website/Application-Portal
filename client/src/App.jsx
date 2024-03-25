@@ -1,26 +1,26 @@
-// import React, { useState } from 'react'
+import {useState} from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
-// page imports
+import Home from "./pages/Home.jsx";
+import Team from "./pages/Team.jsx";
+import FAQ from "./pages/FAQ.jsx";
 import Signup from "./pages/Signup.jsx";
-// import LogIn from './pages/Login.jsx'
 
-// component imports
 import Navbar from "./components/Navbar.jsx";
 
-// import './App.css' <= this is bad
 
 function App() {
   // const [count, setCount] = useState(0)
+  const [toggle, setToggle] = useState(false)
 
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <Navbar toggle={toggle} setToggle={setToggle}/>
         <Routes>
-          <Route path="/" /* element={<Home />} */ />
-          <Route path="/team" /* element={<Team />} */ />
-          <Route path="/faq" /* element={<FAQ />} */ />
+          <Route path="/" element={<Home />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
