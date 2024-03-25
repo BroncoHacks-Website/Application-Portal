@@ -12,7 +12,9 @@ router.get("/", async (req, res) => {
   try {
     const users = await UserModel.getUsers();
     if (users.length === 0) {
-      return res.status(404).send({ status: "fail", message: "No Users Not Found" });
+      return res
+        .status(404)
+        .send({ status: "fail", message: "No Users Not Found" });
     }
     res.status(200).send(users);
   } catch (err) {
@@ -36,7 +38,7 @@ router.get("/:userid", userIdValidator, async (req, res) => {
     const user = await UserModel.getUser(data.userid);
     res.status(200).send(user);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send({ status: "error", message: err.message });
   }
 });
 
@@ -57,7 +59,7 @@ router.post("/", accountCreationValidator, async (req, res) => {
     const newUser = await UserModel.createAccount(email, password);
     res.status(200).send({ status: "success", data: newUser });
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send({ status: "error", message: err.message });
   }
 });
 
