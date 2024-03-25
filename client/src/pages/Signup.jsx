@@ -2,12 +2,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Signup() {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function handleClick() {
+  const handleClick = () => {
     navigate("/login"); // Set path to whatever the path to the login page is.
   }
 

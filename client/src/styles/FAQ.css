@@ -1,0 +1,12 @@
+.FAQ {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 5rem);
+    background-color: #c8e7fa;
+    align-items: center;
+    padding-top: 2.5rem;
+}
+
+.FAQ h1 {
+    text-decoration: underline;
+}
