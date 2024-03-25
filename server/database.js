@@ -6,6 +6,6 @@ const connection = mysql2.createConnection({
     database: 'initial_broncohacks_db',
     user: process.env.USER,
     password: process.env.PASSWORD
-});
+}).promise();
 
 module.exports = connection;
