@@ -1,5 +1,0 @@
-{
-    "scripts": {
-        "client": "npm run --prefix ./client build && npm run --prefix ./client dev"
-    }
-}
