@@ -1,23 +1,31 @@
-import { useState } from 'react'
-import SignupPage from './pages/Signup.jsx'
-import { Route, Routes } from 'react-router-dom'
-import Signup from './pages/Signup.jsx'
-import LogIn from './pages/Login.jsx'
-import './App.css'
+// import React, { useState } from 'react'
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+
+// page imports
+import Signup from "./pages/Signup.jsx";
+// import LogIn from './pages/Login.jsx'
+
+// component imports
+import Navbar from "./components/Navbar.jsx";
+
+// import './App.css' <= this is bad
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
+      <BrowserRouter>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Signup />} /> // Replace path with "/signup" after home page is created.
-          <Route path="/login" element={<LogIn />} />
+          <Route path="/" /* element={<Home />} */ />
+          <Route path="/team" /* element={<Team />} */ />
+          <Route path="/faq" /* element={<FAQ />} */ />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
-      </div>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
