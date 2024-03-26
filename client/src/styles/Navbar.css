@@ -76,7 +76,7 @@
 }
 
 .navbar-links button h1:hover {
-  color: #616161;
+  color: #444444;
   transition: 0.3s;
 }
 
@@ -99,6 +99,7 @@
     list-style: none;
     padding: 0;
     width: 100%;
+    font-weight: bolder;
   }
 
   .dropdown-menu {
