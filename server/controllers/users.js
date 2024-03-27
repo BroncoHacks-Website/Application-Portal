@@ -1,5 +1,6 @@
 const { validationResult, matchedData } = require("express-validator");
 const UserModel = require("../models/users");
+const cloudinary = require("../utils/cloudinary");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -46,7 +47,12 @@ const createUser = async (req, res) => {
 
   const { email, password } = matchedData(req);
 
+  
   try {
+    cloudinary.uploader.upload(
+      "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+      { public_id: "olympic_flag", folder: "testImages" }
+    );
     const newUser = await UserModel.createAccount(email, password);
     res.status(200).send({ status: "success", data: newUser });
   } catch (err) {
