@@ -8,12 +8,11 @@ function SignupPage() {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/login"); // Set path to whatever the path to the login page is.
+    navigate("/login");
   }
 
   return (
     <div className="container">
-
       <div className="createAccountHeader">
         <h1>Create an account!</h1>
       </div>
@@ -45,10 +44,9 @@ function SignupPage() {
         <h1>Already have an account?</h1>
       </div>
 
-      <div className="loginButton"> 
+      <div className="loginButton">
         <button onClick={handleClick}>Log In</button>
       </div>
-
     </div>
   );
 }
