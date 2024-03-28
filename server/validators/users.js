@@ -1,13 +1,13 @@
 const { param, body } = require("express-validator");
-const UserModel = require('../models/users')
+const UserModel = require("../models/users");
 
 const userIdValidator = [
   param("userid")
-  .notEmpty()
-  .withMessage("User ID cannot be empty")
-  .isInt() // might need to change if we end up using UUIDs there is a .isUUID() method 
-  .withMessage("User ID must be an integer") 
-]
+    .notEmpty()
+    .withMessage("User ID cannot be empty")
+    .isInt() // might need to change if we end up using UUIDs there is a .isUUID() method
+    .withMessage("User ID must be an integer"),
+];
 
 const accountCreationValidator = [
   // Validate email
@@ -17,9 +17,9 @@ const accountCreationValidator = [
     .isEmail()
     .withMessage("Invalid email format")
     .custom(async (email) => {
-      const exists = await UserModel.getUserByEmail(email)
+      const exists = await UserModel.getUserByEmail(email);
       if (exists.length > 0) {
-        throw new Error('Email already in use');
+        throw new Error("Email already in use");
       }
     }),
   // Validate password
@@ -36,7 +36,20 @@ const accountCreationValidator = [
     ),
 ];
 
+const imageValidator = [
+  body("imageURL")
+    .notEmpty()
+    .withMessage("Image cannot be empty")
+    .isURL()
+    .withMessage("Invalid URL format"),
+  body("imageLocation")
+    .notEmpty()
+    .withMessage("Image Location cannot be empty"),
+  body("imageId").notEmpty().withMessage("Image ID cannot be empty"),
+];
+
 module.exports = {
   userIdValidator,
   accountCreationValidator,
+  imageValidator,
 };

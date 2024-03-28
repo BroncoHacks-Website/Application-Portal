@@ -47,12 +47,11 @@ const createUser = async (req, res) => {
 
   const { email, password } = matchedData(req);
 
-  
   try {
-    cloudinary.uploader.upload(
-      "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-      { public_id: "olympic_flag", folder: "testImages" }
-    );
+    // cloudinary.uploader.upload(
+    //   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+    //   { public_id: "olympic_flag", folder: "testImages" }
+    // );
     const newUser = await UserModel.createAccount(email, password);
     res.status(200).send({ status: "success", data: newUser });
   } catch (err) {
@@ -79,9 +78,36 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const uploadImage = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({
+      status: "fail",
+      errors: errors.array(),
+    });
+  }
+
+  const { imageURL, imageLocation, imageId } = matchedData(req);
+
+  try {
+    const image = await cloudinary.uploader.upload(imageURL, {
+      folder: imageLocation,
+      public_id: imageId,
+    });
+    // cloudinary.uploader.upload(
+    //   imageURL,
+    //   { public_id: imageId, folder: imageLocation }
+    // );
+    res.status(200).send({ status: "success", data: image });
+  } catch (err) {
+    res.status(500).send({ status: "error", message: err.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUserByID,
   createUser,
   deleteUser,
+  uploadImage,
 };
