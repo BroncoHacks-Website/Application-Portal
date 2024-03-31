@@ -38,6 +38,8 @@ app.get('/', async (req, res) => {
 const usersRouter = require('./routes/users');
 app.use("/users", usersRouter);
 
+const teamsRouter = require('./routes/teams');
+app.use("/teams", teamsRouter);
 
 app.listen(process.env.PORT, () => {
     console.log('app listening on port', process.env.PORT)
