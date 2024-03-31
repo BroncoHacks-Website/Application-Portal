@@ -4,7 +4,7 @@ const UserController = require("../controllers/users")
 const {
   userIdValidator,
   accountCreationValidator,
-  imageValidator,
+  
 } = require("../validators/users");
 
 // GET route to get all users
@@ -18,8 +18,5 @@ router.post("/", accountCreationValidator, UserController.createUser);
 
 // DELETE route to delete a user
 router.delete("/:userid", userIdValidator, UserController.deleteUser);
-
-// POST route to upload an image
-router.post("/image", imageValidator, UserController.uploadImage);
 
 module.exports = router;
