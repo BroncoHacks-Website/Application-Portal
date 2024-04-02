@@ -8,7 +8,7 @@ console.log(port);
 const app = express();
 
 // database
-const db = require('./config/database');
+const db = require('./database');
 
 app.use(express.json())
 
@@ -21,20 +21,6 @@ app.get('/', async (req, res) => {
         res.status(502).send('Failed To Connect')
     }
 });
-
-// app.get('/', function (req, res) {
-//     const sql = "SELECT * FROM initial_broncohacks_db.User"
-//     connection.query(sql, function (err, result) {
-        
-//         if (err) {
-//             // 502 Bad Gateway 
-//             res.status(502).send('Failed To Connect')
-//         } else {
-//             // 200 OK
-//             res.status(200).send('Successful Connection')
-//         }
-//     })
-// });
 
 // gets all routes from ./routes/Users
 const usersRouter = require('./routes/users');

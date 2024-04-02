@@ -1,5 +1,6 @@
 const { validationResult, matchedData } = require("express-validator");
 const UserModel = require("../models/users");
+const bcrypt = require("bcrypt");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -45,6 +46,8 @@ const createUser = async (req, res) => {
   }
 
   const { email, password } = matchedData(req);
+  // password = await bcrypt.hash(password, 10);
+  // console.log(password)
 
   try {
     const newUser = await UserModel.createAccount(email, password);
@@ -73,9 +76,30 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({ status: "fail", errors: errors.array() });
+  }
+
+  const data = matchedData(req);
+  console.log(data)
+
+  try {
+    const loginUser = await UserModel.loginUser(data.email, data.password);
+    if (loginUser.length === 0) {
+      return res.status(400).send({ status: "fail", message: "Incorrect Password" });
+    }
+    res.status(200).send({ status: "success", data: loginUser }); // this means login successful
+  } catch (err) {
+    res.status(500).send({ status: "error", message: err.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUserByID,
   createUser,
   deleteUser,
+  loginUser
 };
