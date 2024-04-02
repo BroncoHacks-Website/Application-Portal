@@ -1,6 +1,6 @@
 const { validationResult, matchedData } = require("express-validator");
 const UserModel = require("../models/users");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 const getAllUsers = async (req, res) => {
   try {
