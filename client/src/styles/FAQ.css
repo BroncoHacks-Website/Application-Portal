@@ -1,0 +1,23 @@
+.FAQ {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 5rem);
+  align-items: center;
+  background-color: #c8e7fa;
+  padding-top: 2.5rem;
+  z-index: 0;
+}
+
+.qaContainer {
+  height: fit-content;
+  width: 60%;
+  background-color: #f0f8ff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+  padding: 1rem 1rem 0;
+}
+
+.qaContainer h1 {
+  text-decoration: underline;
+}
