@@ -1,6 +1,6 @@
 const { validationResult, matchedData } = require("express-validator");
 const UserModel = require("../models/users");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -46,11 +46,10 @@ const createUser = async (req, res) => {
   }
 
   const { email, password } = matchedData(req);
-  // password = await bcrypt.hash(password, 10);
-  // console.log(password)
+  hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const newUser = await UserModel.createAccount(email, password);
+    const newUser = await UserModel.createAccount(email, hashedPassword);
     res.status(200).send({ status: "success", data: newUser });
   } catch (err) {
     res.status(500).send({ status: "error", message: err.message });
@@ -83,14 +82,17 @@ const loginUser = async (req, res) => {
   }
 
   const data = matchedData(req);
-  console.log(data)
+  const [user] = await UserModel.getUserByEmail(data.email);
 
+  console.log(data.password, user.password);
   try {
-    const loginUser = await UserModel.loginUser(data.email, data.password);
-    if (loginUser.length === 0) {
-      return res.status(400).send({ status: "fail", message: "Incorrect Password" });
+    if (!(await bcrypt.compare(data.password, user.password))) {
+      return res
+        .status(400)
+        .send({ status: "fail", message: "Incorrect Password" });
+    } else {
+      res.status(200).send({ status: "success", data: user }); // this means login successful
     }
-    res.status(200).send({ status: "success", data: loginUser }); // this means login successful
   } catch (err) {
     res.status(500).send({ status: "error", message: err.message });
   }
@@ -101,5 +103,5 @@ module.exports = {
   getUserByID,
   createUser,
   deleteUser,
-  loginUser
+  loginUser,
 };

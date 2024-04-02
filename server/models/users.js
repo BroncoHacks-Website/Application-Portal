@@ -30,11 +30,6 @@ async function deleteUser(id) {
   return user;
 }
 
-async function loginUser(email, password) {
-  const [user] = await db.query(`SELECT * FROM User WHERE email = ? AND password = ?`, [email, password]);
-  console.log(user)
-  return user;
-}
 
 module.exports = {
   getUsers,
@@ -42,5 +37,4 @@ module.exports = {
   getUserByEmail,
   createAccount,
   deleteUser,
-  loginUser,
 };

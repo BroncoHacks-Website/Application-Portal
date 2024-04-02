@@ -19,6 +19,6 @@ router.post("/", accountCreationValidator, UserController.createUser);
 // DELETE route to delete a user
 router.delete("/:userid", userIdValidator, UserController.deleteUser);
 
-router.get("/login/:userid", userLoginValidator, UserController.loginUser);
+router.post("/login", userLoginValidator, UserController.loginUser);
 
 module.exports = router;
