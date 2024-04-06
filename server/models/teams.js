@@ -10,18 +10,25 @@ async function createTeam(teamName, teamOwnerId) {
     if(await checkUserInAnyTeam(teamOwnerId)) {
         throw new Error('User is already part of a team');
     }
-    const passcode = generatePasscode();
-    const [team] = await db.query(
-        'INSERT INTO Team(teamName, passcode, teamOwnerId) VALUES(?,?,?)', [teamName, passcode, teamOwnerId]
-    );
-    
-    await addTeamMember(team.insertId, teamOwnerId, true);
-    return getTeam(team.insertId);
+
+    try {
+        const passcode = generatePasscode();
+        console.log(passcode); // Make sure this prints a valid passcode
+        const [team] = await db.query(
+            'INSERT INTO Team(teamName, passcode, teamOwnerId) VALUES(?,?,?)', [teamName, passcode, teamOwnerId]
+        );
+        await addTeamMember(team.insertId, teamOwnerId, true);
+        return getTeam(team.insertId);
+    } catch(error) {
+        console.log("SQL error:", error.message)
+        throw error;
+    }
+
 }
 
-async function generatePasscode() {
+function generatePasscode() {
     let randomString = Math.random().toString(36).substring(2);
-    randomString = randomString.padEnd(10, '0').substring(0, 8);
+    return randomString = randomString.padEnd(10, '0').substring(0, 8);
 }
 
 // ---------------- Update ----------------
