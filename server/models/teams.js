@@ -54,7 +54,10 @@ async function getTeams() {
 
 async function getTeam(id) {
     const [team] = await db.query('SELECT * FROM Team WHERE teamid = ?', [id]);
-    return team;
+    if(team.length === 0) {
+        return null;
+    }
+    return team[0];
 }
 
 // ---------------- Delete ----------------
@@ -69,5 +72,6 @@ module.exports = {
     createTeam,
     checkTeamNameExists,
     getTeams,
+    getTeam,
     deleteTeam,
 };
