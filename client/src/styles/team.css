@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 50px;
+}
+
+.create-team-container {
+    width: 80vw;
+    height: 225px;
+    background-color: #cabebe2e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.team-name-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.join-team-container {
+    width: 30vw;
+    height: 200px;
+    background-color: #cabebe2e;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
