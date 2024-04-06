@@ -3,11 +3,11 @@ const { check } = require("express-validator");
 const db = require("../database");
 
 // ---------------- Creation ----------------
-async function createTeam(teamName, passcode, teamOwnerId) {
+async function createTeam(teamName, teamOwnerId) {
     if(await checkTeamNameExists(teamName)) {
         throw new Error('Team name is Taken');
     }
-    if(await checkUserInAnyTeam(userId)) {
+    if(await checkUserInAnyTeam(teamOwnerId)) {
         throw new Error('User is already part of a team');
     }
     const passcode = generatePasscode();
@@ -63,8 +63,11 @@ async function getTeam(id) {
 // ---------------- Delete ----------------
 async function deleteTeam(id) {
     const team = await getTeam(id);
+    if(!team) {
+        return null;
+    }    
     await db.query('DELETE FROM Team WHERE teamid = ?', [id]);
-    return team.length ? team[0] : null;
+    return team;
 }
 
 //  ---------------- Exports ----------------
