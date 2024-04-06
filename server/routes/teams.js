@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const TeamController = require("../controllers/team");
+const TeamController = require("../controllers/teams");
 const {teamIdValidator, teamCreationValidator} = require("../validators/teams");
 
 // Get route to get all teams
