@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+section {
+    height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction:column;
+}
+
+.card {
+    background-color:whitesmoke;
+    box-shadow: 0 0 0.9em rgba(0, 0, 0, 0.2);
+    width: 50%;
+    border-radius:10px;
+    display:flex;
+    border:1px solid black;
+    margin-bottom:50px;
+}
+
+.card_image {
+    flex: 0 0 25%;
+    position: relative;
+}
+
+.logo_image {
+    display:block;
+    width:100%;
+    max-width:200px;
+    max-height:200px;
+    padding:5%;
+    /* display:flex;
+    flex-direction:column; */
+}
+.card_text {
+    flex: 1;
+    padding:2.5% 5% 5% 5%;
+    /* margin-top:2.5%; */
+    display:flex;
+    flex-direction:column;
+}
+
+.card_info {
+    display:flex;
+    flex-direction:column;
+}
+
+.card_title {
+    font-weight: 500;
+    letter-spacing: 2px;
+    font-size:25px;
+    margin-bottom:2.5px;
+}
+
+.card_date {
+    font-weight: 500;
+    font-size:17.5px;
+    margin-bottom:10px;
+}
+
+.card_button {
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+    /* margin-top:20px; */
+}
+
+.button {
+    /* margin-top:5%; */
+    font-size:20px;
+    font-weight:500;
+    color:royalblue;
+    border-bottom: 1px solid white;
+    text-decoration:none;
+}
+
+.button:hover {
+    border-bottom: 1px solid royalblue;
+}
