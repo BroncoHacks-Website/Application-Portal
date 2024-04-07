@@ -32,16 +32,51 @@ const getTeamByID = async(req, res) => {
 };
 
 
-const createTeam = async() => {
+const createTeam = async(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).send({
+            status: "fail",
+            errors: errors.array()
+        });
+    }
 
+    const {teamName, teamOwnerId} = matchedData(req);
+
+    try {
+        const newTeam = await TeamModel.createTeam(teamName, teamOwnerId);
+        res.status(201).send({status: "success", data: newTeam});
+    } catch(err) {
+        res.status(500).send({status: "error", message: err.message});
+    } 
+}; // end createTeam
+
+
+const deleteTeam = async(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).send({
+            status: "fail",
+            errors: errors.array()
+        });
+    }
+
+    const {teamid} = matchedData(req);
+    try {
+        const teamExists = await TeamModel.getTeam(teamid);
+        if(!teamExists) {
+            return res.status(404).send({status: "fail", message: "Team Not Found"});
+        }
+        await TeamModel.deleteTeam(teamid);
+        res.status(200).send({status: "success", message: "Team was successfully deleted"});
+    } catch(err) {
+        res.status(500).send({status:"error", message: err.message});
+    }
 };
-
-/*
-const deleteTeam() {
-
-}
 
 module.exports = {
-
+    getAllTeams,
+    getTeamByID,
+    createTeam,
+    deleteTeam,
 };
-*/

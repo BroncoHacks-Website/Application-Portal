@@ -3,25 +3,32 @@ const { check } = require("express-validator");
 const db = require("../database");
 
 // ---------------- Creation ----------------
-async function createTeam(teamName, passcode, teamOwnerId) {
+async function createTeam(teamName, teamOwnerId) {
     if(await checkTeamNameExists(teamName)) {
         throw new Error('Team name is Taken');
     }
-    if(await checkUserInAnyTeam(userId)) {
+    if(await checkUserInAnyTeam(teamOwnerId)) {
         throw new Error('User is already part of a team');
     }
-    const passcode = generatePasscode();
-    const [team] = await db.query(
-        'INSERT INTO Team(teamName, passcode, teamOwnerId) VALUES(?,?,?)', [teamName, passcode, teamOwnerId]
-    );
-    
-    await addTeamMember(team.insertId, teamOwnerId, true);
-    return getTeam(team.insertId);
+
+    try {
+        const passcode = generatePasscode();
+        console.log(passcode); // Make sure this prints a valid passcode
+        const [team] = await db.query(
+            'INSERT INTO Team(teamName, passcode, teamOwnerId) VALUES(?,?,?)', [teamName, passcode, teamOwnerId]
+        );
+        await addTeamMember(team.insertId, teamOwnerId, true);
+        return getTeam(team.insertId);
+    } catch(error) {
+        console.log("SQL error:", error.message)
+        throw error;
+    }
+
 }
 
-async function generatePasscode() {
+function generatePasscode() {
     let randomString = Math.random().toString(36).substring(2);
-    randomString = randomString.padEnd(10, '0').substring(0, 8);
+    return randomString = randomString.padEnd(10, '0').substring(0, 8);
 }
 
 // ---------------- Update ----------------
@@ -62,9 +69,12 @@ async function getTeam(id) {
 
 // ---------------- Delete ----------------
 async function deleteTeam(id) {
-    const team = await getTeam(id);
+    // First delete rows in TeamMember
+    await db.query('DELETE FROM TeamMember WHERE teamid = ?', [id]);
+
+    // Then delete the Team itself
     await db.query('DELETE FROM Team WHERE teamid = ?', [id]);
-    return team.length ? team[0] : null;
+    return {message: "Team and its members deleted successfully"}
 }
 
 //  ---------------- Exports ----------------

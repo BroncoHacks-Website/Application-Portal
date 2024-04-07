@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 
 const port = process.env.PORT;
@@ -9,7 +10,7 @@ const app = express();
 
 // database
 const connection = require('./database');
-
+app.use(cors());
 app.use(express.json())
 
 // test db connection
@@ -40,8 +41,11 @@ app.get('/', async (req, res) => {
 const usersRouter = require('./routes/users');
 app.use("/users", usersRouter);
 
-app.listen(port, () => {
-    console.log('app listening on port', port)
+const teamsRouter = require('./routes/teams');
+app.use("/teams", teamsRouter);
+
+app.listen(process.env.PORT, () => {
+    console.log('app listening on port', process.env.PORT)
 
     // connect to db
     db.connect(function(err) {
