@@ -61,14 +61,14 @@ const deleteTeam = async(req, res) => {
         });
     }
 
-    const {teamid} = MatchedData(req);
+    const {teamid} = matchedData(req);
     try {
         const teamExists = await TeamModel.getTeam(teamid);
         if(!teamExists) {
             return res.status(404).send({status: "fail", message: "Team Not Found"});
         }
         await TeamModel.deleteTeam(teamid);
-        res.status(204).send();
+        res.status(200).send({status: "success", message: "Team was successfully deleted"});
     } catch(err) {
         res.status(500).send({status:"error", message: err.message});
     }

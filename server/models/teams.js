@@ -69,12 +69,12 @@ async function getTeam(id) {
 
 // ---------------- Delete ----------------
 async function deleteTeam(id) {
-    const team = await getTeam(id);
-    if(!team) {
-        return null;
-    }    
+    // First delete rows in TeamMember
+    await db.query('DELETE FROM TeamMember WHERE teamid = ?', [id]);
+
+    // Then delete the Team itself
     await db.query('DELETE FROM Team WHERE teamid = ?', [id]);
-    return team;
+    return {message: "Team and its members deleted successfully"}
 }
 
 //  ---------------- Exports ----------------
