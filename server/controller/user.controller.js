@@ -15,3 +15,20 @@ exports.login = async function login(req, res) {
         res.status(500).json({ message: 'An error occurred while logging in '});
     }
 }
+
+exports.searchUser = async function search(username) {
+    try {
+        const query = 'SELECT * FROM users WHERE username LIKE ?';
+        const values = [`%${username}%`];
+        const [rows] = await db.query(query, values);
+        if (rows.length > 0) {
+            console.log('Users found: ', rows);
+            return rows;
+        } else {
+            console.log('No users found with that username');
+            return null;
+        }
+    } catch(err) {
+        console.error('Error searching for user: ' + err);
+    }
+}
