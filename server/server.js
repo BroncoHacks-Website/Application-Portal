@@ -12,6 +12,7 @@ const db = require('./database');
 
 app.use(express.json())
 
+// from Caleb branch (not sure if we need this but i did for the front end T_T)
 var cors = require('cors');
 app.use(cors())
 

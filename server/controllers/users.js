@@ -35,20 +35,22 @@ const getUserByID = async (req, res) => {
   }
 }; //end getUserByID
 
-const getUserByNameRegex = async (req, res) => {
-  console.log(req.query.search)
-  if (req.query.search == '') {
-    res.status(400).send({ status: "error", message: "your mom" });
-  } else {
-    try {
-      const regex = "^" + req.query.search
-      const matchedUsers = await UserModel.getUserByRegex(regex);
-      res.status(200).send(matchedUsers);
-    } catch (err) {
-      res.status(500).send({ status: "error", message: err.message });
-    }
-  }
-}
+
+// CALEB search bar code
+// const getUserByNameRegex = async (req, res) => {
+//   console.log(req.query.search)
+//   if (req.query.search == '') {
+//     res.status(400).send({ status: "error", message: "your mom" });
+//   } else {
+//     try {
+//       const regex = "^" + req.query.search
+//       const matchedUsers = await UserModel.getUserByRegex(regex);
+//       res.status(200).send(matchedUsers);
+//     } catch (err) {
+//       res.status(500).send({ status: "error", message: err.message });
+//     }
+//   }
+// }
 
 const createUser = async (req, res) => {
   // validate (email is in correct format and password fulfills requirements)
@@ -133,7 +135,7 @@ const searchUser = async (req, res) => {
 module.exports = {
   getAllUsers,
   getUserByID,
-  getUserByNameRegex,
+  // getUserByNameRegex,
   createUser,
   deleteUser,
   loginUser,

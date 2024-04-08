@@ -3,7 +3,8 @@ import SearchBar from "../components/SearchBar";
 const Home = () => {
   return (<>
     <div>Home Page</div>
-    <SearchBar></SearchBar>
+    {/* added search bar to test the component */}
+    {/* <SearchBar></SearchBar> */}
   </>);
 };
 
