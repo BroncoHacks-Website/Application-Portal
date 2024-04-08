@@ -21,4 +21,6 @@ router.delete("/:userid", userIdValidator, UserController.deleteUser);
 
 router.post("/login", userLoginValidator, UserController.loginUser);
 
+router.get('/search/:username', UserController.searchUser);
+
 module.exports = router;

@@ -98,10 +98,28 @@ const loginUser = async (req, res) => {
   }
 };
 
+const searchUser = async (req, res) => {
+    const username = req.params.username;
+    try {
+        const query = 'SELECT * FROM users WHERE username LIKE ?';
+        const values = [`%${username}%`];
+        const [rows] = await db.query(query, values);
+        if (rows.length > 0) {
+            res.status(200).send(rows);
+        } else {
+            res.status(404).send({ message: 'No users found with that username' });
+        }
+    } catch(err) {
+        console.error('Error searching for user: ' + err);
+        res.status(500).send({ message: 'Error searching for user' });
+    }
+}
+
 module.exports = {
   getAllUsers,
   getUserByID,
   createUser,
   deleteUser,
   loginUser,
+  searchUser
 };

@@ -15,23 +15,26 @@ app.use(express.json())
 // test db connection
 app.get('/', async (req, res) => {
     try {
-        const sql = await connection.query("SELECT * FROM initial_broncohacks_db.User")
-        res.status(200).send('Successful Connection') 
+        await db.query("SELECT * FROM initial_broncohacks_db.User");
+        res.status(200).send('Successful Connection');
     } catch (err) {
-        res.status(502).send('Failed To Connect')
+        console.error('Failed to connect to the database: ', err);
+        res.status(502).send('Failed To Connect');
     }
 });
 
 // gets all routes from ./routes/Users
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users.js');
 app.use("/users", usersRouter);
 
 app.listen(port, () => {
     console.log('app listening on port', port)
-
     // connect to db
-    db.connect(function(err) {
-        if (err) throw err;
-        console.log('database connected')
-    })
+    db.connect(err => {
+        if (err) {
+            console.error('Error connecting to the database: ', err);
+            process.exit(1);
+        }
+        console.log('Database connected');
+    });
 });
