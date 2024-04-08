@@ -12,6 +12,9 @@ router.get("/", UserController.getAllUsers);
 // GET route to get user by id
 router.get("/:userid", userIdValidator, UserController.getUserByID);
 
+//GET route to get user by email regex
+router.get("/getEmailByRegex/hi", UserController.getUserByNameRegex);
+
 // POST route to create new user
 router.post("/", accountCreationValidator, UserController.createUser);
 
