@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+
+const Ended = () => {
+
   const navigate = useNavigate();
 
   const sendToEvents = () => {
       navigate("/events");
   }
-  return <div>
-    <p>Home Page</p>
 
+  return <div>
+    <p>This event has already ended.</p>
     <a onClick={sendToEvents} href="">Temporary Events Button</a>
-    
   </div>;
 };
-
-export default Home;
+  
+  export default Ended;
+  

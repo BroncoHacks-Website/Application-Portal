@@ -5,6 +5,8 @@ import Home from "./pages/Home.jsx";
 import Team from "./pages/Team.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import Signup from "./pages/Signup.jsx";
+import Events from "./pages/Events.jsx";
+import Ended from "./pages/Ended.jsx";
 
 import Navbar from "./components/Navbar.jsx";
 
@@ -22,6 +24,8 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/ended" element={<Ended />} />
         </Routes>
       </BrowserRouter>
     </>
