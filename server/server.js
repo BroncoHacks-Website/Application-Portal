@@ -12,6 +12,9 @@ const db = require('./database');
 
 app.use(express.json())
 
+var cors = require('cors');
+app.use(cors())
+
 // test db connection
 app.get('/', async (req, res) => {
     try {

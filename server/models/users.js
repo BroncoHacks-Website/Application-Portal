@@ -15,6 +15,11 @@ async function getUserByEmail(email) {
   return user;
 }
 
+async function getUserByRegex(regex) {
+  const [user] = await db.query(`SELECT email FROM User WHERE (email REGEXP ?)`, [regex]);
+  return user;
+}
+
 async function createAccount(email, password) {
   const [result] = await db.query(
     `INSERT INTO User (email, password) VALUES (?, ?)`,
@@ -35,6 +40,7 @@ module.exports = {
   getUsers,
   getUser,
   getUserByEmail,
+  getUserByRegex,
   createAccount,
   deleteUser,
 };
