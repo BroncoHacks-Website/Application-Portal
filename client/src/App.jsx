@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import Signup from './pages/Signup.jsx'
 import LogIn from './pages/Login.jsx'
 import './App.css'
-import Login from './components/login.jsx'
+import Login from './pages/Login.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
