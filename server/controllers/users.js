@@ -99,10 +99,10 @@ const loginUser = async (req, res) => {
 };
 
 const searchUser = async (req, res) => {
-    const username = req.params.username;
+    const email = req.params.email;
     try {
         const query = 'SELECT * FROM users WHERE username LIKE ?';
-        const values = [`%${username}%`];
+        const values = [`%${email}%`];
         const [rows] = await db.query(query, values);
         if (rows.length > 0) {
             res.status(200).send(rows);
