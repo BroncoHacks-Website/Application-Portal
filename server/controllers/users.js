@@ -116,15 +116,15 @@ const loginUser = async (req, res) => {
 };
 
 const searchUser = async (req, res) => {
-    const username = req.params.username;
+    const email = req.params.email;
     try {
-        const query = 'SELECT * FROM users WHERE username LIKE ?';
-        const values = [`%${username}%`];
+        const query = 'SELECT * FROM users WHERE email LIKE ?';
+        const values = [`%${email}%`];
         const [rows] = await db.query(query, values);
         if (rows.length > 0) {
             res.status(200).send(rows);
         } else {
-            res.status(404).send({ message: 'No users found with that username' });
+            res.status(404).send({ message: 'No users found with that email' });
         }
     } catch(err) {
         console.error('Error searching for user: ' + err);
