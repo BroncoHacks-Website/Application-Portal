@@ -123,5 +123,4 @@ module.exports = {
   createUser,
   deleteUser,
   loginUser,
-  searchUser
 };
