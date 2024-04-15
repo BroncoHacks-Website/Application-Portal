@@ -43,8 +43,8 @@ const getUserByNameRegex = async (req, res) => {
     res.status(400).send({ status: "error", message: "your mom" });
   } else {
     try {
-      const regex = "^" + req.query.search;
-      const [matchedUsers] = await db.query(`SELECT email FROM User WHERE email LIKE ?`, [`%${regex}%`]);
+      const regex = req.query.search;
+      const [matchedUsers] = await db.query(`SELECT userid, email FROM User WHERE email LIKE ?`, [`${regex}%`]);
       res.status(200).send(matchedUsers);
     } catch (err) {
       res.status(500).send({ status: "error", message: err.message });
