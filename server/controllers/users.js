@@ -37,15 +37,15 @@ const getUserByID = async (req, res) => {
 }; //end getUserByID
 
 
-// CALEB search bar code
+// search bar code
 const getUserByNameRegex = async (req, res) => {
   console.log(req.query.search)
   if (req.query.search == '') {
     res.status(400).send({ status: "error", message: "your mom" });
   } else {
     try {
-      const regex = "^" + req.query.search;
-      const [matchedUsers] = await db.query(`SELECT email FROM User WHERE email LIKE ?`, [`%${regex}%`]);
+      const regex = req.query.search;
+      const [matchedUsers] = await db.query(`SELECT email FROM User WHERE email LIKE ?`, [`${regex}%`]);
       res.status(200).send(matchedUsers);
     } catch (err) {
       res.status(500).send({ status: "error", message: err.message });
@@ -116,22 +116,6 @@ const loginUser = async (req, res) => {
   }
 };
 
-const searchUser = async (req, res) => {
-    const email = req.params.email;
-    try {
-        const query = 'SELECT * FROM users WHERE email LIKE ?';
-        const values = [`%${email}%`];
-        const [rows] = await db.query(query, values);
-        if (rows.length > 0) {
-            res.status(200).send(rows);
-        } else {
-            res.status(404).send({ message: 'No users found with that email' });
-        }
-    } catch(err) {
-        console.error('Error searching for user: ' + err);
-        res.status(500).send({ message: 'Error searching for user' });
-    }
-}
 
 module.exports = {
   getAllUsers,
