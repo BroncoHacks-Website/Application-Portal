@@ -4,7 +4,7 @@ const Home = () => {
   return (<>
     <div>Home Page</div>
     {/* added search bar to test the component */}
-    {/* <SearchBar></SearchBar> */}
+    <SearchBar></SearchBar>
   </>);
 };
 
