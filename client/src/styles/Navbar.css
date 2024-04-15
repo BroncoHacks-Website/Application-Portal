@@ -1,7 +1,9 @@
 .navbar {
   display: flex;
   flex-direction: row;
-  height: 5rem;
+  /* height: 5rem; */
+  /* changed the height to an equivalent vh unit */
+  height: 11.5vh;
   width: 100%;
   background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
