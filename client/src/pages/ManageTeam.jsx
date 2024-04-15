@@ -6,14 +6,23 @@ const TeamMember = ({nm}) => {
 
     const [memberName, setMemberName] = useState(nm)
 
-    return (
-        <div id='team-member'>
-            <p>Member: {memberName}</p>
-            <button className='member-btn' id='view-profile'>View Profile</button>
-            <button className='member-btn' id='make-owner'>Make Owner</button>
-            <button className='member-btn' id='kick-member'>Kick Member</button>
-        </div>
-    )
+    if (memberName == "") {
+        return(
+            <div id='team-member'>
+                <p>Member:</p>
+            </div>
+        )
+    } else {
+        return (
+            <div id='team-member'>
+                <p>Member: {memberName}</p>
+                <button className='member-btn' id='view-profile'>View Profile</button>
+                <button className='member-btn' id='make-owner'>Make Owner</button>
+                <button className='member-btn' id='kick-member'>Kick Member</button>
+            </div>
+        )
+    }
+    
 }
 
 const ManageTeam = () => {
@@ -24,7 +33,7 @@ const ManageTeam = () => {
     const [owner, setOwner] = useState("lebrawn james")
     const [mem1, setMem1] = useState("anthony davis")
     const [mem2, setMem2] = useState("austin reaves")
-    const [mem3, setMem3] = useState("")
+    const [mem3, setMem3] = useState("dlo")
 
     useEffect(() => {
         
