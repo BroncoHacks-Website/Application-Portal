@@ -39,7 +39,6 @@ const getUserByID = async (req, res) => {
 
 // CALEB search bar code
 const getUserByNameRegex = async (req, res) => {
-  console.log(req.query.search)
   if (req.query.search == '') {
     res.status(400).send({ status: "error", message: "your mom" });
   } else {
