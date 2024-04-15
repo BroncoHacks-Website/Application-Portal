@@ -11,11 +11,11 @@ const {
 router.get("/", UserController.getAllUsers);
 
 // GET route to get user by id
-router.get("/:userid", userIdValidator, UserController.getUserByID);
+router.get("/getUser/:userid", userIdValidator, UserController.getUserByID); // changed route name because of conflict with other route
 
 //GET route to get user by email regex
 //Caleb's scuffed ass code
-// router.get("/getEmailByRegex/:search", UserController.getUserByNameRegex);
+router.get("/getEmailByRegex", UserController.getUserByNameRegex);
 
 // POST route to create new user
 router.post("/", accountCreationValidator, UserController.createUser);

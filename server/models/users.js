@@ -16,10 +16,10 @@ async function getUserByEmail(email) {
 }
 
 // FROM CALEB BRANCH
-// async function getUserByRegex(regex) {
-//   const [user] = await db.query(`SELECT email FROM User WHERE (email REGEXP ?)`, [regex]);
-//   return user;
-// }
+async function getUserByRegex(regex) {
+  const [user] = await db.query(`SELECT email FROM User WHERE (email REGEXP ?)`, [regex]);
+  return user;
+}
 
 async function createAccount(email, password) {
   const [result] = await db.query(
@@ -41,7 +41,7 @@ module.exports = {
   getUsers,
   getUser,
   getUserByEmail,
-  // getUserByRegex,
+  getUserByRegex,
   createAccount,
   deleteUser,
 };
