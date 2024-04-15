@@ -44,7 +44,7 @@ const getUserByNameRegex = async (req, res) => {
   } else {
     try {
       const regex = "^" + req.query.search;
-      const [matchedUsers] = await db.query(`SELECT email FROM User WHERE (email REGEXP ?)`, [regex]);
+      const [matchedUsers] = await db.query(`SELECT email FROM User WHERE email LIKE ?`, [`%${regex}%`]);
       res.status(200).send(matchedUsers);
     } catch (err) {
       res.status(500).send({ status: "error", message: err.message });
