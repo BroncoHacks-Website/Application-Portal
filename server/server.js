@@ -48,7 +48,7 @@ app.listen(process.env.PORT, () => {
     console.log('app listening on port', process.env.PORT)
 
     // connect to db
-    db.connect(function(err) {
+    connection.connect(function(err) {
         if (err) throw err;
         console.log('database connected')
     })

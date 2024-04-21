@@ -1,5 +1,5 @@
 const { param, body } = require("express-validator");
-const TeamModel = require('../models/teams')
+const TeamModel = require('../models/teams').default
 
 const teamIdValidator = [
     param('teamid')

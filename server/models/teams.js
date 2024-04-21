@@ -14,7 +14,7 @@ async function createTeam(teamName, teamOwnerId) {
     try {
         const passcode = generatePasscode();
         console.log(passcode); // Make sure this prints a valid passcode
-        const [team] = await db.query(
+        const [team] = await query(
             'INSERT INTO Team(teamName, passcode, teamOwnerId) VALUES(?,?,?)', [teamName, passcode, teamOwnerId]
         );
         await addTeamMember(team.insertId, teamOwnerId, true);
@@ -33,14 +33,14 @@ function generatePasscode() {
 
 // ---------------- Update ----------------
 async function addTeamMember(teamId, userId, isOwner) {
-    await db.query('INSERT INTO TeamMember(teamid, userid, isOwner) VALUES(?,?,?)',
+    await query('INSERT INTO TeamMember(teamid, userid, isOwner) VALUES(?,?,?)',
         [teamId, userId, isOwner]
     );
 }
 
 // ---------------- Checks ----------------
 async function checkTeamNameExists(teamName) {
-    const [teams] = await db.query('SELECT * FROM Team WHERE teamName = ?',
+    const [teams] = await query('SELECT * FROM Team WHERE teamName = ?',
         [teamName]
     );
 
@@ -48,19 +48,19 @@ async function checkTeamNameExists(teamName) {
 }
 
 async function checkUserInAnyTeam(userId) {
-    const [members] = await db.query('SELECT * FROM TeamMember Where userid = ?', 
+    const [members] = await query('SELECT * FROM TeamMember Where userid = ?', 
         [userId]);
     return members.length > 0;
 }
 
 // ---------------- Retrieval ----------------
 async function getTeams() {
-    const [teams] = await db.query('SELECT * FROM Team');
+    const [teams] = await query('SELECT * FROM Team');
     return teams;
 }
 
 async function getTeam(id) {
-    const [team] = await db.query('SELECT * FROM Team WHERE teamid = ?', [id]);
+    const [team] = await query('SELECT * FROM Team WHERE teamid = ?', [id]);
     if(team.length === 0) {
         return null;
     }
@@ -70,10 +70,10 @@ async function getTeam(id) {
 // ---------------- Delete ----------------
 async function deleteTeam(id) {
     // First delete rows in TeamMember
-    await db.query('DELETE FROM TeamMember WHERE teamid = ?', [id]);
+    await query('DELETE FROM TeamMember WHERE teamid = ?', [id]);
 
     // Then delete the Team itself
-    await db.query('DELETE FROM Team WHERE teamid = ?', [id]);
+    await query('DELETE FROM Team WHERE teamid = ?', [id]);
     return {message: "Team and its members deleted successfully"}
 }
 
