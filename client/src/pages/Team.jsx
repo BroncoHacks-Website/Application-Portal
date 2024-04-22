@@ -1,5 +1,6 @@
 import { useState} from "react";
 import '../styles/team.css';
+import Horse from "../assets/horse.png";
 //something is wrong with the backend
 /* ⠀⠀⢀⣀⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠾⠛⠛⠷⣦⡀⠀⠀⠀⠀⠀⠀
 ⢠⣶⠛⠋⠉⡙⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⠐⡡⢂⠢⠈⠻⣦⡀⠀⠀⠀⠀
@@ -64,6 +65,7 @@ function Team () {
             else {
                 console.log("Team creation failed");
             }
+            setTeamName("")
         }
         catch (e) {
             console.log('error: ', e);
@@ -87,6 +89,7 @@ function Team () {
             else {
                 console.log("Failed to join a team");
             }
+            setTeamCode("")
         }
         catch (e) {
             console.log('error: ', e);
@@ -104,18 +107,29 @@ function Team () {
     return <>
         <body>
             <div className="create-team-container">
+                <img className="one-horse" src={Horse} alt="" />
+                <div className="divider-team"></div>
                 <h1 className="enter-team-name">Create Your Team</h1>
-                <div className="team-name-container">
-                    <p className="enter-team-name-prompt">Enter your team name: </p>
-                    <input className="enter-team-name-input" type="text" placeholder="Team Name" value={teamName} onChange={handleTeamNameChange}/>
-                </div>
+                <div class="team-name-container">
+                    <input type="input" class="enter-team-name-prompt" placeholder="Team Name" name="name" id='name' value={teamName} onChange={handleTeamNameChange} required />
+                    <label for="name" class="enter-team-name-label">Team Name</label>
+                </div>  
                 <input className="enter-team-name-submit" type="submit" value="Create New Team!" onClick={handleSubmitTeamName}/>
-                <a className="create-team-go-back" href="/">Back to Main Menu</a>
             </div>
+            <div className="divider-team-page"></div>
             <div className="join-team-container">
+                <div className="horses">
+                    <img className="team-horse" src={Horse} alt="" />  
+                    <img className="team-horse" src={Horse} alt="" />  
+                    <img className="team-horse" src={Horse} alt="" />  
+                </div>
+                <div className="divider-team"></div>
                 <h1 className="join-team-name">Join a Team via Code</h1>
-                <input className="join-team-name-input" type="text" placeholder="Example: ab12Cd3E" value={teamCode} onChange={handleTeamCodeChange}/>
-                <input className="join-team-name-submit" type="submit" value="Join" onClick={handleSubmitTeamCode}/>
+                <div class="team-code-container">
+                    <input type="input" class="enter-team-code-prompt" placeholder="Team Code" name="code" id='code' value={teamCode} onChange={handleTeamCodeChange} required />
+                    <label for="code" class="enter-team-code-label">Team Code</label>
+                </div>  
+                <input className="join-team-name-submit" type="submit" value="Join!" onClick={handleSubmitTeamCode}/>
             </div>
         </body>
     </>;

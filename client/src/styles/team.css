@@ -1,39 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+    --white: #FFFFFF;
+    --light-blue: #BCC9E7;
+    --blue: #035BA5;
+    --black: #2f2f2f;
+    --green: #97D8C4;
+    --gray: #535353;
+}
+
+* {
+    font-family: "Rubik", sans-serif;
+}
+
 body {
+    background-color: var(--light-blue);
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     width: 100vw;
-    margin-top: 50px;
+    gap: 10vw;
+    overflow: hidden;
 }
 
 .create-team-container {
-    width: 80vw;
-    height: 225px;
-    background-color: #cabebe2e;
+    background-color: var(--gray);
+    width: 30rem;
+    height: 25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.team-name-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transition: background-color 1s, transform 1s;
 }
 
 .join-team-container {
-    width: 30vw;
-    height: 200px;
-    background-color: #cabebe2e;
-    margin-top: 50px;
+    background-color: var(--gray);
+    width: 30rem;
+    height: 25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: background-color 1s, transform 1s;
+}
+
+.create-team-container:hover {
+    background-color: var(--white);
+}
+
+.join-team-container:hover {
+    background-color: var(--white);
+}
+
+.one-horse {
+    width:10rem;
+    height:10rem;
+}
+
+.divider-team {
+    background-color: var(--blue);
+    width:100%;
+    height:5px;
+}
+
+.enter-team-name {
+    margin: 15px 0 0 0;
+}
+
+
+.team-name-container, .team-code-container {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+    display: flex;
+    justify-content: start;
+}
+
+.enter-team-name-prompt, .enter-team-code-prompt {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--black);
+    outline: 0;
+    font-size: 1.3rem;
+    color: var(--black);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.enter-team-name-prompt::placeholder, .enter-team-code-prompt::placeholder {
+    color: transparent;
+}
+
+.enter-team-name-prompt:placeholder-shown ~ .enter-team-name-label, .enter-team-code-prompt:placeholder-shown ~ .enter-team-code-label {
+    font-size: 1rem;
+    cursor: text;
+    top: 20px;
+}
+
+.enter-team-name-label, .enter-team-code-label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 0.75rem;
+    color: var(--black);
+}
+
+.enter-team-name-prompt:focus ~ .enter-team-name-label, .enter-team-code-prompt:focus ~ .enter-team-code-label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 0.75rem;
+    color: var(--blue);
+    font-weight: 700;    
+}
+
+.enter-team-name-prompt:focus, .enter-team-code-prompt:focus {
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, var(--blue), var(--blue));
+    border-image-slice: 1;
+}
+
+.enter-team-name-prompt:required,
+.enter-team-name-prompt:invalid, 
+.enter-team-code-prompt:required,
+.enter-team-code-prompt:invalid {
+    box-shadow: none;
+}
+
+.enter-team-name-submit, .join-team-name-submit{
+    margin: 20px 0 0 0;
+    background-color: #5b8377;
+    border: transparent;
+    border-radius: 20q;
+    padding: 10px 25px;
+    color: rgb(116, 116, 116);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: transform 0.2s, background-color 1s;
+}
+
+.create-team-container:hover .enter-team-name-submit,
+.join-team-container:hover .join-team-name-submit {
+    background-color: var(--green);
+    color:var(--white);
+}
+
+.join-team-name-submit {
+    margin: 25px 0 0 0;
+}
+
+.enter-team-name-submit:hover, .join-team-name-submit:hover{
+    transform: translateY(-2px) scale(1.1, 1.1);
+}
+
+.enter-team-name-submit:active, .join-team-name-submit:active{
+    transition: 0.2s;
+    transform: translateY(0px);
+    color: var(--green);
+    background-color: var(--white);
+}
+
+
+.divider-team-page {
+    background-color: var(--blue);
+    width: 2px;
+    height: 50vh;
+}
+
+.horses {
+    position: relative;
+    height: 40%;
+    width: 100%;
+}
+
+.team-horse {
+    width:10rem;
+    height:10rem;
+    position:absolute;
+    top: 10%;
+}
+
+.team-horse:nth-child(1) {
+    left: 20%;
+}
+.team-horse:nth-child(2) {
+    top:-20%;
+    left: 35%;
+}
+.team-horse:nth-child(3) {
+    left: 50%;
+}
+
+.join-team-name {
+    margin: 10px 0 0 0;
 }
