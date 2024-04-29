@@ -79,6 +79,7 @@
     height: 100%;
     display: none;
     position: relative;
+    overflow: hidden;
 }
 
 #delete-team {
