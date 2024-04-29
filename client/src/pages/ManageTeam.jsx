@@ -9,6 +9,7 @@ const TeamMember = ({nm, idnum}) => {
     const [num, setNum] = useState(idnum)
     const [toggleBtns, setToggleBtns] = useState(false)
 
+    // changes styling for smaller screen widths
     const toggleOptions = () => {
         const dummy = document.querySelectorAll("#options-dropdown");
         const drop = dummy[num];
