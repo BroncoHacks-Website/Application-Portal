@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const cors = require('cors');
 const express = require('express');
 
 // express app
@@ -7,7 +7,7 @@ const app = express();
 
 // database
 const connection = require('./database');
-
+app.use(cors());
 app.use(express.json())
 
 // test db connection
@@ -38,6 +38,8 @@ app.get('/', async (req, res) => {
 const usersRouter = require('./routes/users');
 app.use("/users", usersRouter);
 
+const teamsRouter = require('./routes/teams');
+app.use("/teams", teamsRouter);
 
 app.listen(process.env.PORT, () => {
     console.log('app listening on port', process.env.PORT)
