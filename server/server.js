@@ -2,14 +2,11 @@ require('dotenv').config();
 
 const express = require('express');
 
-// express app
-const app = express();
-
-// database
-const connection = require('./database');
+const app = express(); // express app
+const connection = require('./database'); // database
+// const s3 = require('./s3bucket'); // s3 bucket
 
 app.use(express.json())
-
 // test db connection
 app.get('/', async (req, res) => {
     try {
@@ -34,3 +31,6 @@ app.listen(process.env.PORT, () => {
         console.log('database connected')
     })
 });
+
+
+

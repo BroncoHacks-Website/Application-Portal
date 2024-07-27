@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/users")
+const ImageController = require("../controllers/images");
 const {
   userIdValidator,
   accountCreationValidator,
@@ -18,5 +19,7 @@ router.post("/", accountCreationValidator, UserController.createUser);
 
 // DELETE route to delete a user
 router.delete("/:userid", userIdValidator, UserController.deleteUser);
+
+router.post("/upload", ImageController.uploadImage);
 
 module.exports = router;

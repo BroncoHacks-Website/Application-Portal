@@ -1,6 +1,7 @@
 const { validationResult, matchedData } = require("express-validator");
 const UserModel = require("../models/users");
-const cloudinary = require("../utils/cloudinary");
+const ImageModel = require("../models/images"); // TODO - remove this line after transition to images' own route
+// const s3bucket = require("../utils/s3");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -48,10 +49,6 @@ const createUser = async (req, res) => {
   const { email, password } = matchedData(req);
 
   try {
-    // cloudinary.uploader.upload(
-    //   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-    //   { public_id: "olympic_flag", folder: "testImages" }
-    // );
     const newUser = await UserModel.createAccount(email, password);
     res.status(200).send({ status: "success", data: newUser });
   } catch (err) {
@@ -78,31 +75,15 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// REMINDER: Remove this in once images have their own route
 const uploadImage = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).send({
-      status: "fail",
-      errors: errors.array(),
-    });
-  }
-
-  const { imageURL, imageLocation, imageId } = matchedData(req);
-
   try {
-    const image = await cloudinary.uploader.upload(imageURL, {
-      folder: imageLocation,
-      public_id: imageId,
-    });
-    // cloudinary.uploader.upload(
-    //   imageURL,
-    //   { public_id: imageId, folder: imageLocation }
-    // );
+    const image = await ImageModel.uploadImageInAWS(/* IMAGE DETAILS WILL NEED TO BE HERE */);
     res.status(200).send({ status: "success", data: image });
   } catch (err) {
     res.status(500).send({ status: "error", message: err.message });
   }
-};
+}
 
 module.exports = {
   getAllUsers,
