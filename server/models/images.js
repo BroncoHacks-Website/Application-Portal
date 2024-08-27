@@ -5,12 +5,12 @@ require('dotenv').config();
 async function uploadImageInAWS(/* params ???? */) {
   const params = {
     Bucket: process.env.AWS_BUCKET_NAME,
-    // Key: req.file.originalname,
-    // Body: req.file.buffer,
-    // ContentType: req.file.mimetype,
-    Key: "test.jpg",
-    Body: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-    ContentType: "image/jpg",
+    Key: req.file.originalname,
+    Body: req.file.buffer,
+    ContentType: req.file.mimetype,
+    // Key: "test.jpg",
+    // Body: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+    // ContentType: "image/jpg",
   };
 
   const command = new PutObjectCommand(params);

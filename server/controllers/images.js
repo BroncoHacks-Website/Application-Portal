@@ -11,7 +11,10 @@ const uploadImage = async (req, res) => {
   // }
 
   // const { imageURL, imageLocation, imageId } = matchedData(req);
-
+  console.log("req.body", req.body);
+  console.log("req.file", req.file);
+  
+  req.file.buffer
 
   try {
     const image = await ImageModel.uploadImageInAWS(/*PUT SOMETHING HERE (SHOULD BE PARAMS like the image and imagetype and stuff)*/);
